@@ -21,6 +21,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { useRef } from "react";
 import { Post_Api } from "./state/postApi";
+import { Categorie_Api } from "./state/categorieApi";
+import { Portfolio_Api } from "./state/portfolioApi";
 /* REDUX PERSISTENCE */
 const createNoopStorage = () => {
   return {
@@ -47,6 +49,9 @@ const persistConfig = {
 };
 const rootReducer = combineReducers({
   [Post_Api.reducerPath]: Post_Api.reducer,
+  [Categorie_Api.reducerPath]: Categorie_Api.reducer,
+  [Portfolio_Api.reducerPath]: Portfolio_Api.reducer,
+
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -62,7 +67,9 @@ export const makeStore = () => {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
       })
-      .concat(Post_Api.middleware)
+        .concat(Post_Api.middleware)
+        .concat(Categorie_Api.middleware)
+        .concat(Portfolio_Api.middleware)
   });
 };
 /* REDUX TYPES */
